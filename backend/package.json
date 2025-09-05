@@ -1,0 +1,24 @@
+{
+  "name": "certificate-generator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch index.js",
+    "start": "node index.js"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "image-size": "^2.0.2",
+    "mongoose": "^8.18.0",
+    "pdfkit": "^0.17.2",
+    "qrcode": "^1.5.4"
+  }
+}
