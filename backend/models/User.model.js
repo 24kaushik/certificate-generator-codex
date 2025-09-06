@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 const userSchema = new Schema(
@@ -34,5 +34,5 @@ userSchema.methods.getSignedJwtToken = function () {
   });
 };
 
-const User = model("User", userSchema);
+const User = model("CertificateUser", userSchema);
 export default User;

@@ -3,7 +3,6 @@ import cors from "cors";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import connectDB from "./config/db.js";
-import certificateRouter from "./routes/certificate.route.js";
 
 // Configure environment variables, Express setup, db.
 dotenv.config();
@@ -22,7 +21,13 @@ app.get("/", (_, res) => {
 });
 
 // Certificate Routes
+import certificateRouter from "./routes/certificate.route.js";
 app.use("/certificate", certificateRouter);
+
+// Auth Routes
+import authRouter from "./routes/auth.route.js";
+app.use("/auth", authRouter);
+
 
 
 app.listen(PORT, () => {
