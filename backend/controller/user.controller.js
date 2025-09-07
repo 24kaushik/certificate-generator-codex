@@ -12,7 +12,7 @@ export async function login(req, res) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
     if (!user.isVerified) {
-      return res.status(403).json({ message: "User not verified" });
+      return res.status(403).json({ message: "User not verified, Please get yourself verified from the tech team (DB verification)." });
     }
     const token = user.getSignedJwtToken();
     res.status(200).json({
