@@ -119,3 +119,35 @@ export async function generateBulkCertificates(req, res) {
     res.status(500).json({ error: "Internal server error" });
   }
 }
+
+export async function searchCertificates(req, res) {
+  try {
+    const { parameter, value } = req.query;
+    const query = {};
+
+    if (!parameter) {
+      return res.status(400).json({ error: "At least one search parameter is required" });
+    }
+
+    if (!value) {
+      return res.status(400).json({ error: "Search value is required" });
+    }
+
+    if (!["name", "course", "qid", "eventName", "position", "date"].includes(parameter)) {
+      return res.status(400).json({ error: "Invalid search parameter" });
+    }
+
+    if (parameter === "name") query.name = value;
+    if (parameter === "course") query.course = value;
+    if (parameter === "qid") query.qid = value;
+    if (parameter === "eventName") query.eventName = value;
+    if (parameter === "position") query.position = value;
+    if (parameter === "date") query.date = value;
+    
+    const results = await Certificate.find(query);
+    res.status(200).json(results);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+}

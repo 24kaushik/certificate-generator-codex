@@ -2,6 +2,32 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router";
 
 const Certificate = () => {
+
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      window.location.href = "/";
+    }
+    fetch("http://localhost:6969/user/getUser", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          window.location.href = "/";
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (!data.name) {
+          window.location.href = "/";
+        }
+      })
+      .catch(() => {
+        window.location.href = "/";
+      });
+  }, []);
+
   const [formData, setFormData] = useState({
     name: "",
     course: "",
@@ -59,6 +85,7 @@ const Certificate = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: JSON.stringify(formData),
       });
@@ -99,6 +126,10 @@ const Certificate = () => {
 
       const response = await fetch("http://localhost:6969/certificate/bulk", {
         method: "POST",
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
         body: formData,
       });
 

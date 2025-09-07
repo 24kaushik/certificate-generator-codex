@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
 
-export const verifyJWT = (req, res, next) => {
+const verifyJWT = (req, res, next) => {
   try {
     const token = req.headers["authorization"]?.split(" ")[1];
     if (!token) {
@@ -30,3 +30,5 @@ export const verifyJWT = (req, res, next) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
+export default verifyJWT;
