@@ -224,7 +224,7 @@ const Certificate = () => {
                   QID
                 </label>
                 <input
-                  type="text"
+                  type="number"
                   name="qid"
                   value={formData.qid}
                   onChange={handleInputChange}

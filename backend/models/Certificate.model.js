@@ -4,7 +4,7 @@ const CertificateSchema = new Schema(
   {
     name: { type: String, required: true },
     generatedBy: { type: Schema.Types.ObjectId, ref: "User" },
-    qid: { type: String, required: true },
+    qid: { type: Number, required: true },
     course: { type: String, required: true },
     eventName: { type: String, required: true },
     position: {

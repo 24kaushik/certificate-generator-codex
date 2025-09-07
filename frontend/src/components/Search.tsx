@@ -5,7 +5,7 @@ import { Link } from "react-router";
 interface CertificateData {
   _id: string;
   name: string;
-  qid: string;
+  qid: number;
   course: string;
   eventName: string;
   position: string;
