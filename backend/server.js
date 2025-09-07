@@ -11,7 +11,10 @@ const PORT = process.env.PORT || 6969;
 
 // Middlewares
 app.use(cors());
-app.use(express.json());
+app.use((req, res, next) => {
+  if (req.is("multipart/form-data")) return next();
+  express.json()(req, res, next);
+});
 app.use(express.urlencoded({ extended: true }));
 
 // Health check endpoint

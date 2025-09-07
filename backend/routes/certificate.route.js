@@ -9,7 +9,7 @@ const certificateRouter = Router();
 
 certificateRouter.post("/create", dbConnectMiddleware, verifyJWT, createCertificate);
 certificateRouter.get("/search", dbConnectMiddleware, verifyJWT, searchCertificates);
-certificateRouter.post("/bulk", dbConnectMiddleware, verifyJWT, upload.single('file'), generateBulkCertificates);
+certificateRouter.post("/bulk", upload.single('file'), dbConnectMiddleware, verifyJWT, generateBulkCertificates);
 
 // Unprotected route
 certificateRouter.get("/:id", dbConnectMiddleware, getCertificate);
