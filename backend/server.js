@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import bodyParser from "body-parser";
 import connectDB from "./config/db.js";
 
 // Configure environment variables, Express setup, db.
