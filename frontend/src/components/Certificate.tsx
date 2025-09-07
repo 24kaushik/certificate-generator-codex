@@ -7,7 +7,7 @@ const Certificate = () => {
     if (!localStorage.getItem("token")) {
       window.location.href = "/";
     }
-    fetch("http://localhost:6969/user/getUser", {
+    fetch("https://certificates.kaushiksarkar.me/user/getUser", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -81,7 +81,7 @@ const Certificate = () => {
     setSuccess(null);
 
     try {
-      const response = await fetch("http://localhost:6969/certificate/create", {
+      const response = await fetch("https://certificates.kaushiksarkar.me/certificate/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -124,7 +124,7 @@ const Certificate = () => {
       formData.append("position", bulkFormData.position);
       formData.append("date", bulkFormData.date);
 
-      const response = await fetch("http://localhost:6969/certificate/bulk", {
+      const response = await fetch("https://certificates.kaushiksarkar.me/certificate/bulk", {
         method: "POST",
         headers: {
           "Content-Type": "multipart/form-data",

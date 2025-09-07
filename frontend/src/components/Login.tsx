@@ -14,7 +14,7 @@ const Login = () => {
     setError('');
 
     try {
-      const response = await fetch('http://localhost:6969/user/login', {
+      const response = await fetch('https://certificates.kaushiksarkar.me/user/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

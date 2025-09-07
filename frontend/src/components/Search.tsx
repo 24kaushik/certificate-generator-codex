@@ -20,7 +20,7 @@ const Search = () => {
     if (!localStorage.getItem("token")) {
       window.location.href = "/";
     }
-    fetch("http://localhost:6969/user/getUser", {
+    fetch("https://certificates.kaushiksarkar.me/user/getUser", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -55,7 +55,7 @@ const Search = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:6969/certificate/search?parameter=${searchType}&value=${searchValue}`,
+        `https://certificates.kaushiksarkar.me/certificate/search?parameter=${searchType}&value=${searchValue}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -105,7 +105,7 @@ const Search = () => {
         result.eventName,
         result.position,
         formattedDate,
-        result._id ? `http://localhost:6969/certificate/${result._id}` : "",
+        result._id ? `https://certificates.kaushiksarkar.me/certificate/${result._id}` : "",
       ].join(",");
     });
 
