@@ -127,7 +127,6 @@ const Certificate = () => {
       const response = await fetch("https://certificates.kaushiksarkar.me/certificate/bulk", {
         method: "POST",
         headers: {
-          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: formData,
