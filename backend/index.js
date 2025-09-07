@@ -24,9 +24,9 @@ app.get("/", (_, res) => {
 import certificateRouter from "./routes/certificate.route.js";
 app.use("/certificate", certificateRouter);
 
-// Auth Routes
-import authRouter from "./routes/auth.route.js";
-app.use("/auth", authRouter);
+// User Routes
+import userRouter from "./routes/user.route.js";
+app.use("/user", userRouter);
 
 
 

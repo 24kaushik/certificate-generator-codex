@@ -7,7 +7,7 @@ export async function login(req, res) {
     if (!user) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
-    const isMatch = await user.matchPassword(password);
+    const isMatch = await user.matchPassword(`${password}`);
     if (!isMatch) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
@@ -25,14 +25,21 @@ export async function login(req, res) {
       },
     });
   } catch (error) {
-    res.status(500).json({ message: "Server error" });
+    console.log(error);
+    res.status(500).json({ message: "Internal server error" });
   }
+}
+
+export async function getCurrentUser(req, res) {
+  return res.status(200).json(req.user);
 }
 
 export async function register(req, res) {
   const { name, email, password, roleAtCodex } = req.body;
   if (!name || !email || !password || !roleAtCodex) {
-    return res.status(400).json({ message: "Please provide all required fields" });
+    return res
+      .status(400)
+      .json({ message: "Please provide all required fields" });
   }
   try {
     const existingUser = await User.find({ email });
@@ -43,9 +50,16 @@ export async function register(req, res) {
     await user.save();
 
     const token = user.getSignedJwtToken();
-    
-    res.status(201).json({ message: "User registered successfully. Please get yourself verified by someone in the tech team (verification from db).", token });
+
+    res
+      .status(201)
+      .json({
+        message:
+          "User registered successfully. Please get yourself verified by someone in the tech team (verification from db).",
+        token,
+      });
   } catch (error) {
-    res.status(500).json({ message: "Server error" });
+    console.log(error);
+    res.status(500).json({ message: "Internal server error" });
   }
 }
