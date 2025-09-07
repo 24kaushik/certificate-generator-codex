@@ -13,7 +13,6 @@ const Certificate = () => {
 
   const [file, setFile] = useState<File | null>(null);
   const [bulkFormData, setBulkFormData] = useState({
-    course: "",
     eventName: "",
     position: "",
     date: new Date().toISOString().split("T")[0],
@@ -40,8 +39,8 @@ const Certificate = () => {
     setError(null);
     if (e.target.files && e.target.files.length > 0) {
       const selectedFile = e.target.files[0];
-      if (!selectedFile.name.endsWith(".xlsx")) {
-        setError("Please upload only .xlsx files");
+      if (!selectedFile.name.endsWith(".csv")) {
+        setError("Please upload only .csv files");
         setFile(null);
         return;
       }
@@ -86,7 +85,7 @@ const Certificate = () => {
     setSuccess(null);
 
     if (!file) {
-      setError("Please select an Excel file");
+      setError("Please select a CSV file");
       setIsLoading(false);
       return;
     }
@@ -94,9 +93,11 @@ const Certificate = () => {
     try {
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("data", JSON.stringify(bulkFormData));
+      formData.append("eventName", bulkFormData.eventName);
+      formData.append("position", bulkFormData.position);
+      formData.append("date", bulkFormData.date);
 
-      const response = await fetch("/api/bulk", {
+      const response = await fetch("http://localhost:6969/certificate/bulk", {
         method: "POST",
         body: formData,
       });
@@ -280,11 +281,11 @@ const Certificate = () => {
           <form onSubmit={handleBulkSubmit} className="space-y-4">
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Upload Excel File (with name & qid columns)
+                Upload CSV File (with name, qid & course columns)
               </label>
               <input
                 type="file"
-                accept=".xlsx,.xls,.csv"
+                accept=".csv"
                 onChange={handleFileChange}
                 className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                 required
@@ -292,20 +293,7 @@ const Certificate = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Course
-                </label>
-                <input
-                  type="text"
-                  name="course"
-                  value={bulkFormData.course}
-                  onChange={handleBulkInputChange}
-                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                  required
-                />
-              </div>
-              <div>
+              <div className="md:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Event Name
                 </label>
@@ -324,9 +312,12 @@ const Certificate = () => {
                 </label>
                 <select
                   name="position"
-                  value={formData.position}
+                  value={bulkFormData.position}
                   onChange={(e) =>
-                    setFormData({ ...formData, position: e.target.value })
+                    setBulkFormData({
+                      ...bulkFormData,
+                      position: e.target.value,
+                    })
                   }
                   className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                   required
